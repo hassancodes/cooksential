@@ -1,3 +1,3 @@
 export const SavedRecipe=()=>{
-    return <h1>This is Recipe</h1>
+    return <h1>This is saved recipe</h1>
 }
