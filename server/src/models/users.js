@@ -7,5 +7,5 @@ const userSchema = new mongoose.Schema({
 })
 
 
-export const userModel = mongoose.model("users",userSchema,"recipe-app");
+export const userModel = mongoose.model("users",userSchema);
 

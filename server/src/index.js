@@ -8,7 +8,7 @@ let app= express();
 // connecting with mongodb
 // mongoose.connect("mongodb+srv://thedevhassan:891OF4kDWzI4JoY9@recipes.zd1r0oz.mongodb.net/");
 
-mongoose.connect("mongodb+srv://thedevhassan:891OF4kDWzI4JoY9@recipes.zd1r0oz.mongodb.net/?retryWrites=true&w=majority");
+mongoose.connect("mongodb+srv://thedevhassan:891OF4kDWzI4JoY9@recipes.zd1r0oz.mongodb.net/recipe-app?retryWrites=true&w=majority");
 
 
 
