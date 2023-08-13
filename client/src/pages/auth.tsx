@@ -1,5 +1,7 @@
 import { useState } from "react"
 import axios from "axios"
+import { useCookies } from 'react-cookie';
+import { useNavigate } from "react-router-dom";
 
 export const Auth=()=>{
     return <div>
@@ -16,13 +18,42 @@ const Login = ()=>{
     const [username,setUsername] = useState("");
     const [password,setPassword] = useState("");
 
+    // name of the cookie is the access_token
+    const [_,setCookies] = useCookies(["access_token"]);
+    const navigate = useNavigate();
+    
+    const targetUrl = "http://localhost:5500/auth/login"
+
+    const onSubmit=async (event:any)=>{
+
+    event?.preventDefault();
+    try {
+    const response = await axios.post(targetUrl , {username,password});
+    
+    setCookies("access_token",response.data.token)
+
+    // need to study this more
+    window.localStorage.setItem("userID",response.data.userID);
+    // window.location.pathname="/"
+    
+    navigate("/");
+
+
+    alert("you are logged in");
+    }catch(err){
+        console.error(err);
+    }
+}
+
+
     // import FORM
     return (
         <Form username={username}
               setUsername={setUsername}
               password={password}
               setPassword= {setPassword}
-              label="Login"/>
+              label="Login" 
+              onSubmit={onSubmit}/>
     );
 }
 
@@ -34,7 +65,7 @@ const Register = ()=>{
     const [password,setPassword] = useState("");
 
     // api building
-    const onSubmit= async(event)=>{
+    const onSubmit= async(event:any)=>{
         event.preventDefault();
 
         try{
@@ -60,7 +91,7 @@ const Register = ()=>{
 
 }
 
-const Form =(props)=>{
+const Form =(props:any)=>{
 
     const {username,setUsername,password,setPassword,label,onSubmit} = props;
     return (
