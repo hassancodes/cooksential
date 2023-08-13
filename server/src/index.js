@@ -5,25 +5,21 @@ import mongoose from "mongoose";
 import { userRouter } from "./routes/users.js";
 
 let app= express();
+// connecting with mongodb
+// mongoose.connect("mongodb+srv://thedevhassan:891OF4kDWzI4JoY9@recipes.zd1r0oz.mongodb.net/");
+
+mongoose.connect("mongodb+srv://thedevhassan:891OF4kDWzI4JoY9@recipes.zd1r0oz.mongodb.net/?retryWrites=true&w=majority");
+
+
+
 
 
 // for each reaquest mage
 app.use(express.json());
-app.use(cors);
+// took me 5 hours to figure out that I didn't called cors inside app.use.
+app.use(cors());
 app.use("/auth", userRouter);
 
-
-const password = "evjr3303"
-
-// connecting with mongodb
-
-const functions = async (a)=>{
-     const dog = await a;
-     console.log(dog);
-}
-const a = mongoose.connect("mongodb+srv://thedevhassan:891OF4kDWzI4JoY9@recipes.zd1r0oz.mongodb.net/?retryWrites=true&w=majority");
-
-// mongoose.connect("mongodb+srv://thedevhassan:891OF4kDWzI4JoY9@recipes.zd1r0oz.mongodb.net/");
 
 
 

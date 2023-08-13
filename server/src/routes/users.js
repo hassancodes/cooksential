@@ -18,12 +18,12 @@ router.post("/register", async (req,res) => {
     
     const newUser = new userModel({
         username,
-        password: hashedPassword
+        password: hashedPassword,
     });
 
-    await newUser.save().then(() => console.log("One entry added"), 
+    await newUser.save({collections:"recipes"}).then(() => console.log("One entry added"), 
     (err) => console.log(err));
-    res.json({message: "user Registered Successfully"});
+    res.json({message: "user is not registered"});
 
 });
 
@@ -34,13 +34,13 @@ router.post("/login", async (req,res)=>{
     if(!user){
         return res.json({message:"User Not Found. Please register"});
     }
-    const isPasswordValid = await bcrypt.compare(password,user.password);
+    const isPasswordValid = bcrypt.compare(password,user.password);
     if(!isPasswordValid){
         return res.json({message:"Username or Password is incorrect"})
     }
     
     // we can use a 
-    const tokem = jwt.sign({id:user._id}, "secret");
+    const token = jwt.sign({id:user._id}, "secret");
     res.json({token,userID: user._id});
 })
 
