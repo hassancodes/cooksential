@@ -3,6 +3,9 @@ import cors from "cors";
 // mongoose is an ORM for mongodb
 import mongoose from "mongoose";
 import { userRouter } from "./routes/users.js";
+import { recipeRouter } from "./routes/recipes.js";
+
+
 
 let app= express();
 // connecting with mongodb
@@ -19,6 +22,7 @@ app.use(express.json());
 // took me 5 hours to figure out that I didn't called cors inside app.use.
 app.use(cors());
 app.use("/auth", userRouter);
+app.use("/recipe", recipeRouter);
 
 
 
