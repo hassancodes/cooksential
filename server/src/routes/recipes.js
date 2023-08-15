@@ -15,7 +15,7 @@ router.get("/", async(req,res)=>{
 
 // start from here in the morning
 router.post("/", async(req,res)=>{
-    
+    console.log(req)
     const recipe = new recipeModel(req.body)
     try{
         const response= await recipe.save().then(()=>("Recipe Successfully Saved"),(error)=>console.log(error));
@@ -32,11 +32,14 @@ router.post("/", async(req,res)=>{
 router.put("/", async(req,res)=>{
 
     try{
-        const recipe =await recipeModel.findById(req.body.recipeID)
-        const user = await recipeModel.findById(req.body.userID);
-        user.savedRecipes.push(recipe);
-        await user.save().then(()=>{"Recipe is Saved Successfully"},(err)=>{console.log(err)});
+        const recieveRecipe =await recipeModel.findById(req.body.recipeID)
+        const recieveUser = await recipeModel.findById(req.body.userID);
+        // console.log(req.body);
+        // console.log("recieved recipe id : " , recieveRecipe._id)
+        user.savedRecipes.push(recieveRecipe._id);
+        await recievedUser._id.save().then(()=>{"Recipe is Saved Successfully"},(err)=>{console.log(err)});
         res.json({savedRecipes : user.savedRecipes});
+        
     }
     catch(err){
         res.json(err);

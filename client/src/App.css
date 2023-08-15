@@ -1,0 +1,42 @@
+/* create Recipe Page */
+body{
+    text-align: center;
+    font-family: Arial;
+}
+
+/* .create-recipe{
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+} */
+
+.create-recipe{
+    max-width: 600px;
+    border: 1px solid black;
+    margin:auto;
+    padding:25px;
+    margin-top: 20px;
+    border-radius: 8px;
+}
+.create-recipe-form input, textarea{
+    display:block;
+    margin: auto;
+    width : 300px;
+    height:25px;
+    border-radius: 6px;
+}
+
+
+.create-recipe-form textarea{
+    resize: none;
+}
+
+.create-recipe-form button{
+    display: block;
+    margin: auto;
+    width: 150px;
+    height: 25px;
+    display:inline-flexbox;
+}
