@@ -1,6 +1,7 @@
 import { recipeModel } from "../models/Recipes.js";
 import express from "express"
 import mongoose from "mongoose";
+import {userModel} from "../models/users.js"
 
 const router = express.Router();
 router.get("/", async(req,res)=>{
@@ -29,29 +30,26 @@ router.post("/", async(req,res)=>{
 
 
 // put request is used to add the recipe to the saved.
-router.put("/", async(req,res)=>{
+router.put("/", async (req, res) => {
+    const recipe = await recipeModel.findById(req.body.recipeID);
+    const user = await userModel.findById(req.body.userID);
+    try {
+      user.savedRecipes.push(recipe);
+      await user.save();
+      res.status(201).json({ savedRecipes: user.savedRecipes });
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  });
 
-    try{
-        const recieveRecipe =await recipeModel.findById(req.body.recipeID)
-        const recieveUser = await recipeModel.findById(req.body.userID);
-        // console.log(req.body);
-        // console.log("recieved recipe id : " , recieveRecipe._id)
-        user.savedRecipes.push(recieveRecipe._id);
-        await recievedUser._id.save().then(()=>{"Recipe is Saved Successfully"},(err)=>{console.log(err)});
-        res.json({savedRecipes : user.savedRecipes});
-        
-    }
-    catch(err){
-        res.json(err);
-    }
-});
+
 
 
 // route for showing all the saved recipes 
-router.get("/savedRecipes/ids", async(req,res)=>{
+router.get("/savedRecipes/ids/:userId", async(req,res)=>{
 
     try{
-    const user = await userModel.findById(req.body.userID);
+    const user = await userModel.findById(req.params.userID);
     // this is the return that the frontend will recieve
     res.json({savedRecipes: user?.savedRecipes})
     }

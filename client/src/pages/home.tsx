@@ -14,12 +14,14 @@ interface Recipe{
 }
 export const Home=()=>{
     const [recipes,setRecipes] = useState([]);
+    const [savedRecipes,setSavedRecipes] = useState([]);
     const userID = Fetchuser();
     console.log("userid" , userID);
     
     // we are using useEffect. 
     useEffect(()=>{
 
+        // fetching recipes to display on home page
         const fetchRecipes =async () => {
             try {
                 // just using any and assuming it will work
@@ -29,7 +31,28 @@ export const Home=()=>{
                 console.error(error)
             }
         }
+
+
+
+        // function to check the saved recipes so we cannot save them again
+        const fetchSavedRecipes =async () => {
+          try {
+              // just using any and assuming it will work
+             const response = await axios.get(`http://localhost:5500/recipe/savedRecipes/ids/${userID}`)
+             setSavedRecipes(response.data.savedRecipes);
+             console.log("this is saved recipes",savedRecipes)
+          } catch (error) {
+              console.error(error)
+          }
+      }
+
+
+
+
+        fetchSavedRecipes();
         fetchRecipes();
+
+
 
     },[]);
     const saveRecipe = async (recipeID:string) => {
@@ -37,8 +60,6 @@ export const Home=()=>{
             console.log("this is recipe id",recipeID);
             console.log("this is user id",userID);
 
-
-            
 
           const response = await axios.put("http://localhost:5500/recipe", {
             recipeID : recipeID,
@@ -57,9 +78,9 @@ export const Home=()=>{
         {recipes.map((recipe:Recipe) => (
           <li key={recipe._id}>
             <div>
-              <h2>{recipe.name}</h2>\
-              <button onClick={()=>saveRecipe(recipe._id)}>Saved Recipe</button>
-=
+              <h2>{recipe.name}</h2>
+              {userID ? <button onClick={()=>saveRecipe(recipe._id)}>Saved Recipe</button> : ""}
+
             </div>
             <div className="instructions">
               <p>{recipe.instructions}</p>
