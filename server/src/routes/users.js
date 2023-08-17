@@ -1,6 +1,6 @@
 
 import express from "express"
-import jwt from 'jsonwebtoken';
+import jwt from "jsonwebtoken";
 import bcrypt from 'bcrypt'
 import { userModel } from "../models/users.js";
 
@@ -55,3 +55,21 @@ router.post("/login", async (req,res)=>{
 
 // this router is common for all files , can accessed as userRouter.
 export {router as userRouter}
+
+
+// creating middleware
+
+export const verifyToken = (req,res,next)=>{
+    const token = req.headers.authorization;
+    if(token){
+        jwt.verify(token,"secret",(err)=>{
+
+            if(err) {
+                return res.sendStatus(403);
+            }
+            next();
+        });
+    }else{
+        res.sendStatus(401);
+    }
+}
