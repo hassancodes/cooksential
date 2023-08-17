@@ -1,8 +1,8 @@
 import {useState} from "react";
 import "../App.css";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import { Fetchuser } from "../hooks/Fetchuser";
+// import { useNavigate } from "react-router-dom";
+import { Fetchuser } from "../hooks/fetchuser.tsx";
 
 
 // creating the interface for recipe object.

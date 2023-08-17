@@ -3,13 +3,19 @@ import axios from "axios"
 import { Fetchuser } from "../hooks/fetchuser.tsx";
 
 // fetching all the recipes to display on home.
-interface LIST {
-    items :string[]
+
+interface Recipe{
+    _id:string,
+    name:string,
+    instructions:string,
+    ingredients: string[],
+    imageUrl : string,
+    cookingTime:number,
+    userOwner:string,
 }
 
-
 export const SavedRecipe=()=>{
-    const [savedRecipes,setSavedRecipes] = useState<any>([]);
+    const [savedRecipes,setSavedRecipes] = useState<Recipe[]>([]);
 
 
 
@@ -43,7 +49,7 @@ export const SavedRecipe=()=>{
 <div>
       <h1> Saved Recipes</h1>
       <ul>
-        {savedRecipes?.map((savedRecipe) => (
+        {savedRecipes.map((savedRecipe) => (
           <li key={savedRecipe._id}>
 
             <div>
