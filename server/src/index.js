@@ -5,19 +5,19 @@ import cors from "cors";
 import mongoose from "mongoose";
 import { userRouter } from "./routes/users.js";
 import { recipeRouter } from "./routes/recipes.js";
-dotenv.config();
+dotenv.config("./.env");
 
 
 let app= express();
 // connecting with mongodb
 // mongoose.connect("mongodb+srv://thedevhassan:891OF4kDWzI4JoY9@recipes.zd1r0oz.mongodb.net/");
-const USERNAME_MONGO = process.env.USERNAME_MONGO;
-const PASSWORD_MONGO = process.env.PASSWORD_MONGO;
 
 
 
-mongoose.connect(`mongodb+srv://${USERNAME_MONGO}:${PASSWORD_MONGO}@recipes.zd1r0oz.mongodb.net/recipe-app?retryWrites=true&w=majority`);
-
+const myVar = process.env.MONGODB;
+console.log("whatttttttttttttttttttttt" ,myVar)
+// mongoose.connect(`mongodb+srv://${process.env.USERNAME_MONGO}:${process.env.PASSWORD_MONGO}@recipes.zd1r0oz.mongodb.net/recipe-app?retryWrites=true&w=majority`);
+mongoose.connect(process.env.MONGODB);
 
 
 
