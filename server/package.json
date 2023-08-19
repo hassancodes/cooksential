@@ -4,8 +4,9 @@
   "main": "index.js",
   "license": "MIT",
   "type": "module",
+  "prive":true,
   "scripts": {
-    "start": "nodemon src/index.js"
+    "start": "nodemon src/index.js",
   },
   "dependencies": {
     "bcrypt": "^5.1.0",
